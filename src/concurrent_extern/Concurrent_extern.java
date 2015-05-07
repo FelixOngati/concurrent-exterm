@@ -32,39 +32,7 @@ public class Concurrent_extern {
         for(int i=0; i<threads.length; i++){
             threads[i].start();
         }
-//        Thread thread_1 = new Thread() {
-//            @Override
-//            public void run() {
-//                String myScript = "php hello1.php";
-//                String[] command = {"xterm", "-e", myScript + " ; le_exec"};
-//                try {
-//                    Runtime.getRuntime().exec(command);
-//                } catch (IOException ex) {
-//                    Logger.getLogger(Concurrent_extern.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            }
-//        };
-//
-//        Thread thread_2 = new Thread() {
-//            @Override
-//            public void run() {
-//                String myScript = "php hello1.php";
-//                String[] command = {"xterm", "-e", myScript + " ; le_exec"};
-//                try {
-//                    Runtime.getRuntime().exec(command);
-//                } catch (IOException ex) {
-//                    Logger.getLogger(Concurrent_extern.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            }
-//        };
-//
-//        // Start the threads.
-//        thread_1.start();
-//        thread_2.start();
 
-//// Wait for them both to finish
-//thread_1.join();
-//thread_2.join();
     }
 
      public static class ThreadEngine implements Runnable {
