@@ -19,39 +19,73 @@ public class Concurrent_extern {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Thread thread_1 = new Thread() {
-            @Override
-            public void run() {
-                String myScript = "php hello1.php";
-                String[] command = {"xterm", "-e", myScript + " ; le_exec"};
-                try {
-                    Runtime.getRuntime().exec(command);
-                } catch (IOException ex) {
-                    Logger.getLogger(Concurrent_extern.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        };
-
-        Thread thread_2 = new Thread() {
-            @Override
-            public void run() {
-                String myScript = "php hello1.php";
-                String[] command = {"xterm", "-e", myScript + " ; le_exec"};
-                try {
-                    Runtime.getRuntime().exec(command);
-                } catch (IOException ex) {
-                    Logger.getLogger(Concurrent_extern.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        };
-
-        // Start the threads.
-        thread_1.start();
-        thread_2.start();
+        int records = Integer.parseInt(args[0]);
+        final int SIZE = 10;
+        //create an array to store 10 threads
+        Thread[] threads = new Thread[SIZE];
+        
+        //create the threads in a for loop and store in the array
+        for(int i = 0; i<threads.length; i++){
+            threads[i] = new Thread(new ThreadEngine("hello1.php"));
+        }
+        
+        for(int i=0; i<threads.length; i++){
+            threads[i].start();
+        }
+//        Thread thread_1 = new Thread() {
+//            @Override
+//            public void run() {
+//                String myScript = "php hello1.php";
+//                String[] command = {"xterm", "-e", myScript + " ; le_exec"};
+//                try {
+//                    Runtime.getRuntime().exec(command);
+//                } catch (IOException ex) {
+//                    Logger.getLogger(Concurrent_extern.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//        };
+//
+//        Thread thread_2 = new Thread() {
+//            @Override
+//            public void run() {
+//                String myScript = "php hello1.php";
+//                String[] command = {"xterm", "-e", myScript + " ; le_exec"};
+//                try {
+//                    Runtime.getRuntime().exec(command);
+//                } catch (IOException ex) {
+//                    Logger.getLogger(Concurrent_extern.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//        };
+//
+//        // Start the threads.
+//        thread_1.start();
+//        thread_2.start();
 
 //// Wait for them both to finish
 //thread_1.join();
 //thread_2.join();
+    }
+
+     public static class ThreadEngine implements Runnable {
+
+        private String file;
+
+        public ThreadEngine(String file) {
+            this.file = file;
+        }
+
+        @Override
+        public void run() {
+            String myScript = "php "+file;
+            String[] command = {"xterm", "-e", myScript + " ; le_exec"};
+            try {
+                Runtime.getRuntime().exec(command);
+            } catch (IOException ex) {
+                Logger.getLogger(Concurrent_extern.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }
 
 }
